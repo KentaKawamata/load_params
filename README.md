@@ -10,6 +10,8 @@ ROS paramみたいにパラメータやファイルパスをビルドレスで�
 |gcc|gcc-5.6以上|
 |cmake|cmake-3.5以上|
 
+Ubuntu 16.04 LTS kernel-4.15で動作確認済み．
+
 
 ### Build
 
