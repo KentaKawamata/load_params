@@ -1,3 +1,5 @@
+#ifndef LOAD_PARAMS_H
+#define LOAD_PARAMS_H
 
 #include <iostream>
 #include <string>
@@ -47,17 +49,15 @@ public:
 
     template<typename Param>
     void get_param(std::string id, Param &param);
-    void change_type(float &param);
-
 };
-    
-LoadParams::LoadParams()
+
+inline LoadParams::LoadParams()
 {}
 
-LoadParams::~LoadParams()
+inline LoadParams::~LoadParams()
 {}
 
-void LoadParams::set_param(const std::string param_string, bool &param)
+inline void LoadParams::set_param(const std::string param_string, bool &param)
 {
     if(param_string == "1" || param_string == "true")
     {
@@ -75,55 +75,55 @@ void LoadParams::set_param(const std::string param_string, bool &param)
     }
 }
 
-void LoadParams::set_param(const std::string param_string, int &param)
+inline void LoadParams::set_param(const std::string param_string, int &param)
 {
     param = std::stoi(param_string);
 }
 
-void LoadParams::set_param(const std::string param_string, unsigned long int &param)
+inline void LoadParams::set_param(const std::string param_string, unsigned long int &param)
 {
     param = std::stoul(param_string);
 }
 
-void LoadParams::set_param(const std::string param_string, unsigned long long int &param)
+inline void LoadParams::set_param(const std::string param_string, unsigned long long int &param)
 {
     param = std::stoull(param_string);
 }
 
-void LoadParams::set_param(const std::string param_string, float &param)
+inline void LoadParams::set_param(const std::string param_string, float &param)
 {
     param = std::stof(param_string);
 }
 
-void LoadParams::set_param(const std::string param_string, double &param)
+inline void LoadParams::set_param(const std::string param_string, double &param)
 {
     param = std::stod(param_string);
 }
 
-void LoadParams::set_param(const std::string param_string, long double &param)
+inline void LoadParams::set_param(const std::string param_string, long double &param)
 {
     param = std::stold(param_string);
 }
 
-void LoadParams::set_param(const std::string param_string, std::string &param)
+inline void LoadParams::set_param(const std::string param_string, std::string &param)
 {
     param = param_string;
 }
 
 template<typename Param>
-void LoadParams::set_param(const std::string param_string, Param &param)
+inline void LoadParams::set_param(const std::string param_string, Param &param)
 {
     std::cout << "[ERROR]: " << typeid(param).name() << " is not defined in loadParams.hpp" << std::endl;
     exit(0);
 }
 
 template<typename Param>
-void LoadParams::get_param(std::string param_name, Param &param)
+inline void LoadParams::get_param(std::string param_name, Param &param)
 {
     using namespace boost::property_tree;
 
     ptree pt;
-    xml_parser::read_xml("./../launch/setting.xml", pt);
+    xml_parser::read_xml("/home/kawa/program/calc3D/launch/params.xml", pt);
 
     BOOST_FOREACH(ptree::value_type &v, pt.get_child("data"))
     {
@@ -135,3 +135,5 @@ void LoadParams::get_param(std::string param_name, Param &param)
         }
     }
 }
+
+#endif //LOAD_PARAMS_H
