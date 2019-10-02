@@ -125,11 +125,13 @@ inline void LoadParams::get_param(std::string param_name, Param &param)
     ptree pt;
     try
     {
-        xml_parser::read_xml("/home/kawa/program/calc3D/launch/params.xml", pt);
+        xml_parser::read_xml("./..//launch/params.xml", pt);
     }
     catch(xml_parser_error& e)
     {
         std::wcout << "[ERROR]: " << e.what() << std::endl;
+        std::wcout << "[ERROR]: " << "Check path and filename of xml file" << std::endl;
+        exit(0);
     }
     
     BOOST_FOREACH(ptree::value_type &v, pt.get_child("data"))
