@@ -12,6 +12,8 @@ class LoadParams
 {
 private:
 
+    bool find_param_name;
+
     void set_param(const std::string param_string, bool &param);
 
     //未実装
@@ -51,7 +53,8 @@ public:
     void get_param(std::string id, Param &param);
 };
 
-inline LoadParams::LoadParams()
+inline LoadParams::LoadParams():
+    find_param_name (false)
 {}
 
 inline LoadParams::~LoadParams()
@@ -122,10 +125,12 @@ inline void LoadParams::get_param(std::string param_name, Param &param)
 {
     using namespace boost::property_tree;
 
+    find_param_name = false;
     ptree pt;
+
     try
     {
-        xml_parser::read_xml("./..//launch/params.xml", pt);
+        xml_parser::read_xml("./../launch/setting.xml", pt);
     }
     catch(xml_parser_error& e)
     {
@@ -141,8 +146,15 @@ inline void LoadParams::get_param(std::string param_name, Param &param)
         {
             std::string p = v.second.get_child("<xmlattr>.value").data();
             set_param(p, param);
+            find_param_name = true;
             break;
         }
+    }
+
+    if(!find_param_name)
+    {
+        std::cout << "[ERROR]: " << "Could not find paramerter name : " << param_name << std::endl;
+        exit(0);
     }
 }
 

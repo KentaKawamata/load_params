@@ -17,6 +17,7 @@ int main(int argc, char* argv[])
   //load->get_param<char>("test4", test_error);
   load->get_param<std::string>("set_string", test_str);
   load->get_param<bool>("set_bool", test_bool);
+  load->get_param<bool>("error_bool", test_bool);
 
   std::cout << test_num << std::endl;
   std::cout << test_double << std::endl;
