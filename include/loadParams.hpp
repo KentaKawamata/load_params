@@ -132,6 +132,7 @@ inline void LoadParams::get_param(std::string param_name, Param &param)
         {
             std::string p = v.second.get_child("<xmlattr>.value").data();
             set_param(p, param);
+            break;
         }
     }
 }
