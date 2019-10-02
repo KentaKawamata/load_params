@@ -123,8 +123,15 @@ inline void LoadParams::get_param(std::string param_name, Param &param)
     using namespace boost::property_tree;
 
     ptree pt;
-    xml_parser::read_xml("/home/kawa/program/calc3D/launch/params.xml", pt);
-
+    try
+    {
+        xml_parser::read_xml("/home/kawa/program/calc3D/launch/params.xml", pt);
+    }
+    catch(xml_parser_error& e)
+    {
+        std::wcout << "[ERROR]: " << e.what() << std::endl;
+    }
+    
     BOOST_FOREACH(ptree::value_type &v, pt.get_child("data"))
     {
         std::string name = v.second.get_child("<xmlattr>.name").data();
